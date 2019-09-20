@@ -1,18 +1,18 @@
 <?php
 /**
- * @package          Flexie-CRM
- * @link              https://flexie.io/
- * @since             1.0.0
+ * @package          Flexie-WooCommerce-Tracking
+ * @link             https://flexie.io/
+ * @since            1.0.0
  * @flexie-crm
- * Plugin Name:       Flexie WooCommerce Integration
- * Plugin URI:        https://github.com/flexie-crm/WooCommerce-Tracking
- * Description:       Flexie CRM Integration with WooCommerce
- * Version:           1.0.0
- * Author:            Flexie CRM
- * Author URI:        https://flexie.io
- * License:           MIT
- * License URI:       https://opensource.org/licenses/MIT
- * Text Domain:       flexie-crm
+ * Plugin Name:      Flexie WooCommerce Tracking
+ * Plugin URI:       https://github.com/flexie-crm/WooCommerce-Tracking
+ * Description:      Flexie CRM WooCommerce Tracking
+ * Version:          1.0.0
+ * Author:           Flexie CRM
+ * Author URI:       https://flexie.io
+ * License:          MIT
+ * License URI:      https://opensource.org/licenses/MIT
+ * Text Domain:      Flexie-WooCommerce-Tracking
  */
 
 /*

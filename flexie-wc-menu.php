@@ -1,5 +1,5 @@
 <div class="wrap">
-    <h1>Flexie Integration with WooCommerce</h1>
+    <h1>Flexie WooCommerce Tracking</h1>
     <form method="post" action="options.php">
         <?php settings_fields( 'flexie-crm-settings' ); ?>
         <?php do_settings_sections( 'flexie-crm-settings' ); ?>
