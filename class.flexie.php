@@ -31,7 +31,9 @@ class Flexie {
 				$this->load_tracking();
 			} else {
 				if (wp_get_current_user()->user_email != null) {
-					LoadTrack::trackPageHit( true );
+					if (get_option('flexie_track_pagehit') == "1") {
+						LoadTrack::trackPageHit( true );
+					} 
 					$this->load_tracking();
 				}
 			} 
@@ -42,10 +44,20 @@ class Flexie {
 	 * Set WooCommerce Webhook Actions
 	 */
 	private function load_tracking(){
-		add_action( 'woocommerce_single_product_summary',array( $this, 'flexie_action_woocommerce_single_product_summary' ), 10, 1 );
-		add_action( 'woocommerce_cart_contents', array( $this, 'flexie_action_woocommerce_cart_contents' ), 10, 1 );	
-		add_action( 'woocommerce_checkout_order_review', array( $this, 'flexie_action_woocommerce_checkout_order_review' ), 10, 1 );		
-		add_action( 'woocommerce_thankyou', array( $this, 'flexie_action_woocommerce_thankyou' ), 10, 1 ); 		
+		$track_product = get_option('flexie_track_product') == "1" ? true : false;
+		$track_cart = get_option('flexie_track_cart') == "1" ? true : false;
+		$track_order = get_option('flexie_track_order') == "1" ? true : false;
+
+		if ( $track_product ) { 
+			add_action( 'woocommerce_single_product_summary',array( $this, 'flexie_action_woocommerce_single_product_summary' ), 10, 1 );
+		}
+		if ( $track_cart ) {
+			add_action( 'woocommerce_cart_contents', array( $this, 'flexie_action_woocommerce_cart_contents' ), 10, 1 );	
+			add_action( 'woocommerce_checkout_order_review', array( $this, 'flexie_action_woocommerce_checkout_order_review' ), 10, 1 );
+		} 		
+		if ( $track_order ) {
+			add_action( 'woocommerce_thankyou', array( $this, 'flexie_action_woocommerce_thankyou' ), 10, 1 ); 		
+		}
 	}
 	
 	/**
@@ -54,8 +66,10 @@ class Flexie {
 	public function load_flexie_script(){
 		wp_enqueue_script( 'flexie_tracking_script', plugin_dir_url(__FILE__).'assets/js/flexie_tracking_script.js', array(), null, false );		
 		wp_localize_script( 'flexie_tracking_script', 'flexie_tracking_script_object', 
-		array( 
-		'domain' => 'https://'. get_option('flexie_subdomain').'.flexie.io') 
+			array( 
+			'domain'	=> 'https://'. get_option('flexie_subdomain').'.flexie.io',
+			'trackAll'	=> ( get_option('flexie_track_pagehit') == "1" ? true : false)
+			)
 		);
 	} 
 	

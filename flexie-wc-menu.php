@@ -6,16 +6,16 @@
         <table class="form-table">
             <tr><?php settings_errors(); ?></tr>        
             <tr valign="top">
-            <th scope="row">Your Flexie subdomain</th>
-            <td><input type="text" id="flexie-subdomain-id" name="flexie_subdomain" value="<?php echo esc_attr( get_option('flexie_subdomain') ); ?>" /></td>
+            <th scope="row">Your Flexie subdomain <span style="color: red;">*</span></th>
+            <td><input type="text" id="flexie-subdomain-id" name="flexie_subdomain" value="<?php echo esc_attr( get_option('flexie_subdomain') ); ?>" />.flexie.io</td>
             </tr>
             <tr valign="top">
-            <th scope="row">Your API key</th>
+            <th scope="row">Your API key <span style="color: red;">*</span></th>
             <td><input type="text" name="flexie_api_key" value="<?php echo esc_attr( get_option('flexie_api_key') ); ?>" /></td>
             </tr>     
             <tr valign="top">
-            <th scope="row">Track Products</th>
-            <td><input type="checkbox" name="flexie_track_products" <?php checked(1, get_option('flexie_track_products'), true); ?> value="1" /></td>
+            <th scope="row">Track Product</th>
+            <td><input type="checkbox" name="flexie_track_product" <?php checked(1, get_option('flexie_track_product'), true); ?> value="1" /></td>
             </tr>      
             <tr valign="top">
             <th scope="row">Track Cart</th>
@@ -25,6 +25,14 @@
             <th scope="row">Track Order</th>
             <td><input type="checkbox" name="flexie_track_order" <?php checked(1, get_option('flexie_track_order'), true); ?> value="1" /></td>
             </tr>
+            <tr valign="top">
+            <th scope="row">Track PageHit</th>
+            <td><input type="checkbox" name="flexie_track_pagehit" <?php checked(1, get_option('flexie_track_pagehit'), true); ?> value="1" /></td>
+            </tr>
+            <tr valign="top">
+            <th colspan = 2 scope="row" style="font-size:12px; font-style:italic; color: red;">
+            NOTE: Login to your Flexie CRM account with the domain above and under your Account Name (in the top, righthand corner) > Account > API Settings, you will find your API Key.
+            </th></tr>
         </table>
         <?php submit_button('Save Configuration', 'primary', 'flexie-crm-save-settings' ); ?>
     </form>

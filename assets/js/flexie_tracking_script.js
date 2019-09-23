@@ -10,13 +10,13 @@ if (typeof window.FlexieSDKLoaded == 'undefined'
     script.onload       = function() {
         
         FlexieSDKLoaded = true;  
-        if(typeof flexie_metadata_script_object == 'undefined') {
+        if(typeof flexie_metadata_script_object == 'undefined' && flexie_tracking_script_object.trackAll == true) {
             FlexieSDK.trackPageHit();
         }
     };
     head.appendChild(script);
 } else {
-    if(typeof flexie_metadata_script_object == 'undefined') {
+    if(typeof flexie_metadata_script_object == 'undefined' && flexie_tracking_script_object.trackAll == true) {
         FlexieSDK.trackPageHit();
     }
 }
