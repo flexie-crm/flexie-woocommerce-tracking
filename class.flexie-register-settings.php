@@ -28,7 +28,7 @@ class Flexie_Register_Settings {
 	 */
 	public function flexie_woocommerce_integration_menu(){
 		// Create Flexie CRM menu
-		add_menu_page( 'Flexie WooCommerce', 'Flexie CRM', 'administrator', __FILE__, array($this,'flexie_settings_menu') , plugins_url('/images/icon.png', __FILE__) );
+		add_menu_page( 'Flexie WooCommerce Tracking', 'Flexie Tracking', 'administrator', __FILE__, array($this,'flexie_settings_menu') , plugins_url('/images/icon.png', __FILE__) );
 		// Init plugin settings
 		add_action( 'admin_init', array($this, 'register_flexie_wc_settings') );   
 
