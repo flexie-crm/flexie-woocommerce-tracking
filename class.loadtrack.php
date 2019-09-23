@@ -10,7 +10,8 @@
  * @author     Flexie CRM
  */
 
-class LoadTrack {  
+class LoadTrack {
+      
     /**
      * Called when WooCommerce registered Webhooks are fired.  
      * Details are set in metadata key passed to flexie_medatada_script_object 
@@ -19,12 +20,12 @@ class LoadTrack {
         wp_enqueue_script( 'flexie_metadata_script', plugin_dir_url(__FILE__).'assets/js/flexie_metadata_script.js', array(), null, false );
         if( $cookie_set ) {
             $params = array( 
-                'objectType'    =>$type,
+                'objectType'    => $type,
                 'metadata'      => $data
             ); 
         } else {
             $params = array( 
-                'objectType'    =>$type,
+                'objectType'    => $type,
                 'metadata'      => $data,
                 'email'         => wp_get_current_user()->user_email
             ); 
@@ -33,6 +34,7 @@ class LoadTrack {
             $params
         );	
     }
+
     /**
      * Called when there is no tracking cookie set and the user is logged in.  
      */

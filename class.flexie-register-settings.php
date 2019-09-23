@@ -55,9 +55,10 @@ class Flexie_Register_Settings {
 	 *
 	 */
 	public function Register_Options (){  
-		register_setting( 'flexie-crm-settings', 'flexie_track_products' );
+		register_setting( 'flexie-crm-settings', 'flexie_track_product' );
 		register_setting( 'flexie-crm-settings', 'flexie_track_cart' );
 		register_setting( 'flexie-crm-settings', 'flexie_track_order' );
+		register_setting( 'flexie-crm-settings', 'flexie_track_pagehit' );
 		register_setting( 'flexie-crm-settings', 'flexie_subdomain' );
 		register_setting( 'flexie-crm-settings', 'flexie_api_key', array($this, 'Credential_Validation') );	
 	}
@@ -74,10 +75,11 @@ class Flexie_Register_Settings {
 		if( $flexieUser["user"]["id"] != null ){
 			return $apiKey;
 		} else {
-			delete_option('flexie_subdomain');
-			delete_option('flexie_track_products');
-			delete_option('flexie_track_cart');
-			delete_option('flexie_track_order');        
+			delete_option( 'flexie_subdomain' );
+			delete_option( 'flexie_track_product' );
+			delete_option( 'flexie_track_cart' );
+			delete_option( 'flexie_track_order' );  
+			delete_option( 'flexie_track_pagehit' );      
 			
 			add_settings_error(
 				'flexie_subdomain',
