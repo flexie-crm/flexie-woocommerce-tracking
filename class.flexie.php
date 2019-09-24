@@ -80,17 +80,39 @@ class Flexie {
 	public function flexie_action_woocommerce_single_product_summary(){
 		global $product;
 		
+		$productObj = new stdClass();
+
+		$tags = wc_get_product_tag_list( $product->get_id(), '|', '', '' );
+		$categories = wc_get_product_category_list( $product->get_id(), '|', '', '' );
+
+		$product_categories = ( $categories ) ? explode( "|", $categories ) : [];
+		$product_tags = ( $tags ) ? explode( "|", $tags ) : [];
+
+		//Get Clean tags from array
+		$product_tags_clean = array_map(function( $value ) {
+			return trim( strip_tags( $value ) );
+		}, $product_tags);
+	
+		//Get Clean categories from array
+		$product_categories_clean = array_map(function( $value ) {
+			return trim( strip_tags( $value ) );
+		}, $product_categories);
+
+		$image_url = wp_get_attachment_url( $product->get_image_id() );
+		$stock_quantity = $product->get_stock_quantity(); 
+		
 		$productObj->name				= $product->get_name();
+		$productObj->tags				= $product_tags_clean;
 		$productObj->type				= $product->get_type();
 		$productObj->sku 				= $product->get_sku();
 		$productObj->description 		= $product->get_short_description();
-		$productObj->categories 		= $product->get_categories();
+		$productObj->categories 		= $product_categories_clean;
 		$productObj->permalink 			= get_permalink( $product->get_id() );
-		$productObj->regular_price 		= $product->get_regular_price();
-		$productObj->sale_price 		= $product->get_sale_price();
-		$productObj->image_url 			= wp_get_attachment_url( $product->get_image_id() );
+		$productObj->regular_price 		= floatval( $product->get_regular_price() );
+		$productObj->sale_price 		= floatval( $product->get_sale_price() );
+		$productObj->image_url 			= ( $image_url ) ? $image_url : '';
 		$productObj->image_gallery 		= $product->get_gallery_image_ids();
-		$productObj->stock_quantity 	= $product->get_stock_quantity();
+		$productObj->stock_quantity 	= ( $stock_quantity ) ? $stock_quantity : 0;
 		$productObj->stock_status 		= $product->get_stock_status();
 
 		if ( $productObj ) {
@@ -108,24 +130,48 @@ class Flexie {
 	 */
 	public function flexie_action_woocommerce_cart_contents(){
 		$cartItems = array();	
+		
 		$cart = WC()->cart->get_cart();
-		
+
 		foreach ( $cart as $cart_item ) {
+			
 			$product = wc_get_product( $cart_item['product_id'] );
+			
+			$cartItem = new stdClass();
+			
+			$tags = wc_get_product_tag_list( $cart_item['product_id'], '|', '', '' );
+			$categories = wc_get_product_category_list( $cart_item['product_id'], '|', '', '' );
+
+			$product_categories = ( $categories ) ? explode( "|", $categories ) : [];
+			$product_tags = ( $tags ) ? explode( "|", $tags ) : [];
+
+			//Get Clean tags from array
+			$product_tags_clean = array_map(function( $value ) {
+				return trim( strip_tags( $value ) );
+			}, $product_tags);
 		
+			//Get Clean categories from array
+			$product_categories_clean = array_map(function( $value ) {
+				return trim( strip_tags( $value ) );
+			}, $product_categories);
+
+			$image_url = wp_get_attachment_url( $product->get_image_id() );
+
 			$cartItem->name				= $product->get_name();
 			$cartItem->type				= $product->get_type();
 			$cartItem->sku 				= $product->get_sku();
 			$cartItem->description 		= $product->get_short_description();
-			$cartItem->categories 		= $product->get_categories();
+			$cartItem->tags 			= $product_tags_clean;
+			$cartItem->categories 		= $product_categories_clean;
 			$cartItem->permalink 		= get_permalink( $product->get_id() );
 			$cartItem->regular_price 	= $product->get_regular_price();
 			$cartItem->sale_price 		= $product->get_sale_price();
-			$cartItem->image_id 		= $product->get_image_id();
+			$cartItem->image_url 		= $image_url;
 			$cartItem->image_gallery 	= $product->get_gallery_image_ids();
 
 			$cartItems[] = $cartItem;
 		}
+		
 		if ( $cartItems ) {
 			if( isset($_COOKIE['track_fx']) ){
 				LoadTrack::trackMetaData( $cartItems, 'cart', true );
@@ -141,24 +187,47 @@ class Flexie {
 	 */
 	public function flexie_action_woocommerce_checkout_order_review(){
 		$cartItems = array();	
-		$cart = WC()->cart->get_cart();
 		
+		$cart = WC()->cart->get_cart();
+				
 		foreach ( $cart as $cart_item ) {
 			$product = wc_get_product( $cart_item['product_id'] );
+						
+			$cartItem = new stdClass();
+			
+			$tags = wc_get_product_tag_list( $cart_item['product_id'], '|', '', '' );
+			$categories = wc_get_product_category_list( $cart_item['product_id'], '|', '', '' );
+
+			$product_categories = ( $categories ) ? explode( "|", $categories ) : [];
+			$product_tags = ( $tags ) ? explode( "|", $tags ) : [];
+
+			//Get Clean tags from array
+			$product_tags_clean = array_map(function( $value ) {
+				return trim( strip_tags( $value ) );
+			}, $product_tags);
+		
+			//Get Clean categories from array
+			$product_categories_clean = array_map(function( $value ) {
+				return trim( strip_tags( $value ) );
+			}, $product_categories);
+
+			$image_url = wp_get_attachment_url( $product->get_image_id() );
 		
 			$cartItem->name				= $product->get_name();
 			$cartItem->type				= $product->get_type();
 			$cartItem->sku 				= $product->get_sku();
 			$cartItem->description 		= $product->get_short_description();
-			$cartItem->categories 		= $product->get_categories();
+			$cartItem->tags				= $product_tags_clean;
+			$cartItem->categories 		= $product_categories_clean;
 			$cartItem->permalink 		= get_permalink( $product->get_id() );
 			$cartItem->regular_price 	= $product->get_regular_price();
 			$cartItem->sale_price 		= $product->get_sale_price();
-			$cartItem->image_id 		= $product->get_image_id();
+			$cartItem->image_url 		= $image_url;
 			$cartItem->image_gallery 	= $product->get_gallery_image_ids();
 
 			$cartItems[] = $cartItem;
 		}
+		
 		if ( $cartItems ) {
 			if( isset($_COOKIE['track_fx']) ){
 				LoadTrack::trackMetaData( $cartItems, 'checkout', true );	
@@ -174,6 +243,9 @@ class Flexie {
 	 */
 	public function flexie_action_woocommerce_thankyou( $order_id ){
 		$order = wc_get_order( $order_id );
+		
+		$orderObj = new stdClass();
+
 		// Get Order Totals $0.00
 		$orderObj->id 					= $order->get_id();
 		$orderObj->total 				= $order->get_formatted_order_total();
@@ -204,6 +276,7 @@ class Flexie {
 		$orderObj->shipping_country 	= $order->get_shipping_country();
 		$orderObj->url 					= $order->get_checkout_order_received_url();
 		$orderObj->note 				= $order->get_customer_note();
+		
 		if ( $orderObj )
 		{
 			if( isset($_COOKIE['track_fx']) ){
