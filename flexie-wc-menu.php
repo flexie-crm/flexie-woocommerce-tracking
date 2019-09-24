@@ -26,7 +26,7 @@
             <td><input type="checkbox" name="flexie_track_order" <?php checked(1, get_option('flexie_track_order'), true); ?> value="1" /></td>
             </tr>
             <tr valign="top">
-            <th scope="row">Track PageHit</th>
+            <th scope="row">Track All Page Hits</th>
             <td><input type="checkbox" name="flexie_track_pagehit" <?php checked(1, get_option('flexie_track_pagehit'), true); ?> value="1" /></td>
             </tr>
             <tr valign="top">
