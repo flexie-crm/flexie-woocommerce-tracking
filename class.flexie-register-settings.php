@@ -18,10 +18,11 @@ class Flexie_Register_Settings {
 	 * Initialise plugin admin menu
 	 *
 	 */
-	public function Register_Settings(){
+	public function Register_Settings(){	
+		  
 		add_action( 'admin_menu', array($this, 'flexie_woocommerce_integration_menu'), 10, 1 );
 	}
-	
+
 	/**
 	 * Create plugin menu and register options
 	 *
@@ -62,14 +63,14 @@ class Flexie_Register_Settings {
 		register_setting( 'flexie-crm-settings', 'flexie_track_order' );
 		register_setting( 'flexie-crm-settings', 'flexie_track_pagehit' );
 		register_setting( 'flexie-crm-settings', 'flexie_subdomain' );
-		register_setting( 'flexie-crm-settings', 'flexie_api_key', array($this, 'Credential_Validation') );	
+		register_setting( 'flexie-crm-settings', 'flexie_api_key', array($this, 'credential_validation') );	
 	}
 	
 	/**
 	 * Validate Subdomain and API Key configured in the plugin settings.
 	 *
 	 */
-	public function Credential_Validation( $apiKey ){
+	public function credential_validation( $apiKey ){
 		$url = 'https://'. $_POST['flexie_subdomain'] .'.flexie.io/api/users/self?apikey=' . $apiKey . '';
 		$response = wp_remote_get( $url );
 		$flexieUser = json_decode( wp_remote_retrieve_body( $response ), true );

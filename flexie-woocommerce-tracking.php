@@ -6,7 +6,7 @@
  * @flexie-crm
  * Plugin Name:      Flexie WooCommerce Tracking
  * Plugin URI:       https://github.com/flexie-crm/WooCommerce-Tracking
- * Description:      Flexie CRM WooCommerce Tracking
+ * Description:      An easy to use tracking tool for Wordpress that help you better undestanding user's activity. It logs metadata and page hit information inside Flexie CRM, under your user's contact.  
  * Version:          1.0.0
  * Author:           Flexie CRM
  * Author URI:       https://flexie.io
@@ -52,12 +52,6 @@ if ( !function_exists( 'add_action' ) ) {
 }
 
 /**
- * Check if WooCommerce is active
- *
- */
-if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
-
-/**
  * Define Plugin Directory
  *
  */
@@ -72,17 +66,29 @@ require_once( FLEXIE__PLUGIN_DIR . 'class.loadtrack.php' );
 require_once( FLEXIE__PLUGIN_DIR . 'class.flexie-register-settings.php' );
 
 /**
- * Initialise WooCommerce Webhooks
- *
- */
-add_action( 'init', array( 'Flexie', 'init' ), 0 );	
-
-/**
  * Initialise Plugin Settings in Wordpress
  *
  */
 $initSettings = new Flexie_Register_Settings();
-$initSettings->Register_Settings();
+$initSettings->register_settings();
+
+/**
+ * Initialise WooCommerce Webhooks
+ *
+ */
+add_action( 'init', array( 'Flexie', 'init' ), 0 );	 
+
+$plugin = plugin_basename(__FILE__); 
+add_filter( "plugin_action_links_$plugin",  "add_settings_link", 10, 1 );	
+
+/**
+ * Add settings link on plugin page
+ *
+ */	
+function add_settings_link($links) { 
+	$settings_link = '<a href="admin.php?page=flexie-woocommerce-tracking/class.flexie-register-settings.php">Settings</a>'; 
+	array_unshift($links, $settings_link); 
+	return $links; 
 }
 
 
