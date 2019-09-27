@@ -47,6 +47,7 @@ class Flexie {
 		$track_product = get_option('flexie_track_product') == "1" ? true : false;
 		$track_cart = get_option('flexie_track_cart') == "1" ? true : false;
 		$track_order = get_option('flexie_track_order') == "1" ? true : false;
+		add_action( 'wc_add_to_cart_message', array($this, 'flexie_action_woocommerce_add_to_cart'), 10, 1 );
 
 		if ( $track_product ) { 
 			add_action( 'woocommerce_single_product_summary',array( $this, 'flexie_action_woocommerce_single_product_summary' ), 10, 1 );
@@ -60,6 +61,9 @@ class Flexie {
 		}
 	}
 	
+	public function flexie_action_woocommerce_add_to_cart(){
+		var_dump("woocommerce_add_cart_item");
+	}
 	/**
 	 * Loads Flexie Tracking Script
 	 */
