@@ -18,7 +18,7 @@ class Flexie_Register_Settings {
 	 * Initialise plugin admin menu
 	 *
 	 */
-	public function Register_Settings(){	
+	public function register_settings(){	
 		  
 		add_action( 'admin_menu', array($this, 'flexie_woocommerce_integration_menu'), 10, 1 );
 	}
@@ -42,7 +42,7 @@ class Flexie_Register_Settings {
 	 *
 	 */
 	public function register_flexie_wc_settings() {
-		$this->Register_Options();
+		$this->register_options();
 	}
 	
 	/**
@@ -57,7 +57,7 @@ class Flexie_Register_Settings {
 	 * Register plugin configuration settings.
 	 *
 	 */
-	public function Register_Options (){  
+	public function register_options (){  
 		register_setting( 'flexie-crm-settings', 'flexie_track_product' );
 		register_setting( 'flexie-crm-settings', 'flexie_track_cart' );
 		register_setting( 'flexie-crm-settings', 'flexie_track_order' );

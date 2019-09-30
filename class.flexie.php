@@ -26,7 +26,7 @@ class Flexie {
 		if (get_option('flexie_subdomain') != null && get_option('flexie_subdomain'))  {
 
 			add_action('wp_enqueue_scripts', array($this,'load_flexie_script'), 10, 1);	
-		
+			
 			if(isset($_COOKIE['track_fx'])){
 				$this->load_tracking();
 			} else {
@@ -39,7 +39,7 @@ class Flexie {
 			} 
 		}
 	}
-	
+
 	/**
 	 * Set WooCommerce Webhook Actions
 	 */
@@ -47,8 +47,7 @@ class Flexie {
 		$track_product = get_option('flexie_track_product') == "1" ? true : false;
 		$track_cart = get_option('flexie_track_cart') == "1" ? true : false;
 		$track_order = get_option('flexie_track_order') == "1" ? true : false;
-		add_action( 'wc_add_to_cart_message', array($this, 'flexie_action_woocommerce_add_to_cart'), 10, 1 );
-
+		
 		if ( $track_product ) { 
 			add_action( 'woocommerce_single_product_summary',array( $this, 'flexie_action_woocommerce_single_product_summary' ), 10, 1 );
 		}
@@ -60,10 +59,7 @@ class Flexie {
 			add_action( 'woocommerce_thankyou', array( $this, 'flexie_action_woocommerce_thankyou' ), 10, 1 ); 		
 		}
 	}
-	
-	public function flexie_action_woocommerce_add_to_cart(){
-		var_dump("woocommerce_add_cart_item");
-	}
+
 	/**
 	 * Loads Flexie Tracking Script
 	 */
@@ -141,6 +137,8 @@ class Flexie {
 			
 			$product = wc_get_product( $cart_item['product_id'] );
 			
+			$quantity = $cart_item['quantity'];
+
 			$cartItem = new stdClass();
 			
 			$tags = wc_get_product_tag_list( $cart_item['product_id'], '|', '', '' );
@@ -172,6 +170,7 @@ class Flexie {
 			$cartItem->sale_price 		= $product->get_sale_price();
 			$cartItem->image_url 		= $image_url;
 			$cartItem->image_gallery 	= $product->get_gallery_image_ids();
+			$cartItem->quantity			= $quantity;
 
 			$cartItems[] = $cartItem;
 		}
@@ -196,7 +195,9 @@ class Flexie {
 				
 		foreach ( $cart as $cart_item ) {
 			$product = wc_get_product( $cart_item['product_id'] );
-						
+				
+			$quantity = $cart_item['quantity'];
+
 			$cartItem = new stdClass();
 			
 			$tags = wc_get_product_tag_list( $cart_item['product_id'], '|', '', '' );
@@ -228,7 +229,7 @@ class Flexie {
 			$cartItem->sale_price 		= $product->get_sale_price();
 			$cartItem->image_url 		= $image_url;
 			$cartItem->image_gallery 	= $product->get_gallery_image_ids();
-
+			$cartItem->quantity			= $quantity;
 			$cartItems[] = $cartItem;
 		}
 		

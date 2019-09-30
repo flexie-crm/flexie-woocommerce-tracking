@@ -64,6 +64,7 @@ define( 'FLEXIE__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 require_once( FLEXIE__PLUGIN_DIR . 'class.flexie.php' );
 require_once( FLEXIE__PLUGIN_DIR . 'class.loadtrack.php' );
 require_once( FLEXIE__PLUGIN_DIR . 'class.flexie-register-settings.php' );
+require_once( FLEXIE__PLUGIN_DIR . 'class.flexie-ajax-handler.php' );
 
 /**
  * Initialise Plugin Settings in Wordpress
@@ -78,6 +79,12 @@ $initSettings->register_settings();
  */
 add_action( 'init', array( 'Flexie', 'init' ), 0 );	 
 
+/**
+ * Initialise Ajax Actions
+ *
+ */
+add_action( 'init', array( 'Flexie_Ajax_Handler', 'init' ), 0 );	 
+
 $plugin = plugin_basename(__FILE__); 
 add_filter( "plugin_action_links_$plugin",  "add_settings_link", 10, 1 );	
 
@@ -90,6 +97,29 @@ function add_settings_link($links) {
 	array_unshift($links, $settings_link); 
 	return $links; 
 }
+
+// add_action( 'wp_enqueue_scripts', 'my_enqueue', 10, 1);
+
+// 	add_action( 'wp_ajax_flexie_req', 'flexie_ajax_request_handler', 10, 1 );
+
+// 	add_action( 'wp_ajax_nopriv_flexie_req', 'flexie_ajax_request_handler', 10, 1 );
+
+// 	function my_enqueue() {
+	
+// 		wp_enqueue_script( 'ajax-script', plugin_dir_url(__FILE__) . 'assets/js/flexie_ajax_handler.js', array(), null, true );
+	
+// 		wp_localize_script( 'ajax-script', 'flexie_ajax_object',
+// 			array( 
+// 				'ajax_url' =>  admin_url( 'admin-ajax.php' )  
+// 			) 
+// 		);
+// 	}
+
+// 	function flexie_ajax_request_handler(){
+// 		var_dump('<script>console.log(somehow we are here);</script>');
+// 		wp_die();
+// 	}
+	
 
 
     
