@@ -10,7 +10,7 @@ An easy to use tracking tool for Wordpress that help you better undestanding use
 
 ---
 
-### What id does?
+### What it does?
 
 This project is designed track Flexie CRM user's activity in a WordPress shop like WooCommerce or just track Wordpress site visits.
 After installation the plugin settings page requires you to enter mandatory information regarding your Flexie CRM account and shows options from which you can choose. 
