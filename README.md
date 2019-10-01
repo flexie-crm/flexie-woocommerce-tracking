@@ -1,6 +1,6 @@
 # WooCommerce Tracking
 
-An easy to use tracking tool for Wordpress that help you better undestanding user's activity. It logs metadata and page hit information inside Flexie CRM, under your user's contact.
+An easy to use tracking tool for Wordpress that help you better understand user's activity. It logs metadata and page hit information inside Flexie CRM, under your user's contact.
 
 ### Installation
 
@@ -30,7 +30,7 @@ To make the plugin work please enter the following information correctly:
 
 Options you can select to track include:
 
-* Track Product - tracks product details summary in WooCommece
+* Track Product - tracks product details summary in WooCommerce
 * Track Cart - when navigating to cart's page it tracks cart's items in WooCommerce
 * Track Order - when an order is placed, details are tracked in WooCommerce
 * Track All Page Hits - tracks user's navigation in any Wordpress Site
