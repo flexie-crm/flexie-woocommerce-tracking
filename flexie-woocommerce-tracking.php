@@ -97,29 +97,3 @@ function add_settings_link($links) {
 	array_unshift($links, $settings_link); 
 	return $links; 
 }
-
-// add_action( 'wp_enqueue_scripts', 'my_enqueue', 10, 1);
-
-// 	add_action( 'wp_ajax_flexie_req', 'flexie_ajax_request_handler', 10, 1 );
-
-// 	add_action( 'wp_ajax_nopriv_flexie_req', 'flexie_ajax_request_handler', 10, 1 );
-
-// 	function my_enqueue() {
-	
-// 		wp_enqueue_script( 'ajax-script', plugin_dir_url(__FILE__) . 'assets/js/flexie_ajax_handler.js', array(), null, true );
-	
-// 		wp_localize_script( 'ajax-script', 'flexie_ajax_object',
-// 			array( 
-// 				'ajax_url' =>  admin_url( 'admin-ajax.php' )  
-// 			) 
-// 		);
-// 	}
-
-// 	function flexie_ajax_request_handler(){
-// 		var_dump('<script>console.log(somehow we are here);</script>');
-// 		wp_die();
-// 	}
-	
-
-
-    
